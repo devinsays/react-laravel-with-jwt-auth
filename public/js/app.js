@@ -76195,6 +76195,7 @@ function updatePassword(credentials) {
 }
 
 function register(credentials) {
+    console.log(credentials);
     return function (dispatch) {
         return new Promise(function (resolve, reject) {
             __WEBPACK_IMPORTED_MODULE_0__Http__["a" /* default */].post('api/auth/register', credentials).then(function (res) {
