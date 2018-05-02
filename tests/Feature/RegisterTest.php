@@ -38,5 +38,8 @@ class RegisterTest extends TestCase
         ];
         $response = $this->json('POST', '/api/auth/register', $user);
         $response->assertStatus(422);
+
+        $message = $response->getData()->message->email[0];
+        $this->assertEquals("The email has already been taken.", $message);
     }
 }
