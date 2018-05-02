@@ -76097,6 +76097,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 function login(credentials) {
+    console.log(credentials);
     return function (dispatch) {
         return new Promise(function (resolve, reject) {
             __WEBPACK_IMPORTED_MODULE_0__Http__["a" /* default */].post('api/auth/login', credentials).then(function (res) {

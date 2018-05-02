@@ -42,4 +42,5 @@ class RegisterTest extends TestCase
         $message = $response->getData()->message->email[0];
         $this->assertEquals("The email has already been taken.", $message);
     }
+
 }
