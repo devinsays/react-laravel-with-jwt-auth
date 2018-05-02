@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 
 class RegisterTest extends TestCase
 {
@@ -22,5 +24,19 @@ class RegisterTest extends TestCase
 
         $response = $this->json('POST', '/api/auth/register', $new_user);
         $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function existing_user_cannot_register()
+    {
+        $existing_user = factory(User::class)->create();
+        $user = [
+            'name' => $existing_user->name,
+            'email' => $existing_user->email,
+            'password' => 'foobar',
+            'password_confirmation' => 'foobar'
+        ];
+        $response = $this->json('POST', '/api/auth/register', $user);
+        $response->assertStatus(422);
     }
 }
