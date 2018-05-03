@@ -5,6 +5,8 @@ use App\Transformers\Json;
 use App\User;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 class ForgotPasswordController extends Controller
 {
     /*
@@ -35,14 +37,7 @@ class ForgotPasswordController extends Controller
      */
     public function getResetToken(Request $request)
     {
-        $this->validate($request, ['email' => 'required|email']);
-        if ($request->wantsJson()) {
-            $user = User::where('email', $request->input('email'))->first();
-            if (!$user) {
-                return response()->json(['status','Email with reset link sent successfully'],200);
-            }
-            $this->sendResetLinkEmail($request);
-            return response()->json(['status','Email with reset link sent successfully'],200);
-        }
+        $this->sendResetLinkEmail($request);
+        return response()->json(['status','Email with reset link sent successfully'],200);
     }
 }
